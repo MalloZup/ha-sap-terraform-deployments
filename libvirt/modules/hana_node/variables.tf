@@ -136,3 +136,8 @@ variable "sbd_count" {
   description = "variable used to decide to create or not the sbd shared disk device"
   default     = 1
 }
+
+variable "network_id" {
+  description = "network_id injected into module, it is created on main.tf normally"
+   type = string
+}

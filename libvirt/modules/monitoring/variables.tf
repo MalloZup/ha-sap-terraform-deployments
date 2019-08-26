@@ -91,3 +91,9 @@ variable "monitored_services" {
   description = "HOST:PORT of service you want to monitor, it can contain same host with different ports number (diff services)"
   type        = list(string)
 }
+
+
+variable "network_id" {
+  description = "network_id injected into module, it is created on main.tf normally"
+   type = string
+}

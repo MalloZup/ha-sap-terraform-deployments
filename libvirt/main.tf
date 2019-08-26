@@ -16,6 +16,16 @@ module "base" {
   timezone     = "Europe/Berlin"
 }
 
+resource "libvirt_network" "isolated_network" {
+  name      = "${terraform.workspace}-isolated"
+  mode      = "none"
+  addresses = [var.iprange]
+
+  dhcp {
+    enabled = "false"
+  }
+  autostart = true
+}
 
 module "iscsi_server" {
   source                 = "./modules/iscsi_server"
@@ -41,6 +51,8 @@ module "hana_node" {
 
   name                   = "hana"
   hana_count             = 2
+
+  network_id             = libvirt_network.isolated_network.id
   vcpu                   = 4
   memory                 = 32678
   host_ips               = var.host_ips
@@ -70,6 +82,8 @@ module "monitoring" {
   base_configuration = module.base.configuration
 
   name                   = "monitoring"
+
+  network_id             = libvirt_network.isolated_network.id
   monitoring_count       = 1
   vcpu                   = 4
   memory                 = 4095
