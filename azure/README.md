@@ -7,16 +7,16 @@
 
 # Quickstart
 
-## Install
+## 1) Install
 
 * [azure commandline](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-zypper?view=azure-cli-latest)
 
 
-###  Configuration of terraform:
+### 2) Configuration of terraform:
 
-1) Rename terraform.tfvars mv terraform.tfvars.example terraform.tfvars
+1) Rename terraform.tfvars `mv terraform.tfvars.example terraform.tfvars`
 
-2) generate private and public keys for the cluster nodes with:
+2) Generate private and public keys for the cluster nodes with:
 
 ```
 mkdir ../salt/hana_node/files/sshkeys; ssh-keygen -t rsa -f ../salt/hana_node/files/sshkeys/cluster.id_rsa
@@ -25,9 +25,9 @@ The key files need to be named as you defined it in `terraform.tfvars` file.
 
 After that we need to update the `terraform.tfvars` file and copy the pillar files to `salt/hana_node/files/pillar` folder.
 
-### Configure Terraform Access to Azure
+### 3) Configure Terraform Access to Azure
 
-#### Setup Azure account
+#### 3a) Setup Azure account
 
 * Login with  `az login`.
 
@@ -42,7 +42,7 @@ az account set --subscription "SUSE R&D General"
 To verify which subscription is the active one, use the command `az account show`.
 
 
-#### Terraform Azure
+#### 3b) Terraform Azure
 
 To setup access to Azure via Terraform, four parameters are required:
 
@@ -97,7 +97,7 @@ export ARM_TENANT_ID=your_tenant_id
 export ARM_ACCESS_KEY=access_key
 ```
 
-### Deploy
+### 4) Deploy
 
 ```
 terraform init
