@@ -30,7 +30,7 @@ Here an example:
 ```
 hana:
   nodes:
-    - host: {{ grains['name_prefix'] }}01
+    - host: {01
       sid: prd
       instance: 00
       password: YourPassword1234

@@ -3,7 +3,7 @@ hana:
   install_packages: false
   {% endif %}
   nodes:
-    - host: {{ grains['name_prefix'] }}01
+    - host: {{ grains['hostname'][:-2] }}01
       sid: prd
       instance: 00
       password: YourPassword1234
@@ -25,7 +25,7 @@ hana:
           file: backup
         userkey:
           key_name: backupkey
-          environment: {{ grains['name_prefix'] }}01:30013
+          environment: {{ grains['hostname'][:-2] }}01:30013
           user_name: SYSTEM
           user_password: YourPassword1234
           database: SYSTEMDB
@@ -34,7 +34,7 @@ hana:
         user: SYSTEM
         password: YourPassword1234
 
-    - host: {{ grains['name_prefix'] }}02
+    - host: {{ grains['hostname'][:-2] }}02
       sid: prd
       instance: 00
       password: YourPassword1234
@@ -56,13 +56,13 @@ hana:
         sapadm_password: YourPassword1234
       secondary:
         name: SECONDARY_SITE_NAME
-        remote_host: {{ grains['name_prefix'] }}01
+        remote_host: {{ grains['hostname'][:-2] }}01
         remote_instance: 00
         replication_mode: sync
         operation_mode: logreplay
         primary_timeout: 3000
     {% if grains['scenario_type'] == 'cost-optimized' %}
-    - host: {{ grains['name_prefix'] }}02
+    - host: {{ grains['hostname'][:-2] }}02
       sid: qas
       instance: 01
       password: YourPassword1234

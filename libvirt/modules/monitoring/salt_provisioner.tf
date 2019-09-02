@@ -32,7 +32,6 @@ resource "null_resource" "monitoring_provisioner" {
 
   provisioner "file" {
     content = <<EOF
-name_prefix: ${terraform.workspace}-${var.name}
 hostname: ${terraform.workspace}-${var.name}${var.monitoring_count > 1 ? "0${count.index + 1}" : ""}
 timezone: ${var.timezone}
 network_domain: ${var.network_domain}

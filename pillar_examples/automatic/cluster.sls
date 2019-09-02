@@ -5,7 +5,7 @@ cluster:
   install_packages: false
   {% endif %}
   name: hacluster
-  init: {{ grains['name_prefix'] }}01
+  init: {{ grains['hostname'][-2] }}01
   {% if grains['provider'] == 'libvirt' %}
   interface: eth1
   {% else %}

@@ -131,7 +131,6 @@ resource "null_resource" "hana_node_provisioner" {
 provider: gcp
 role: hana_node
 scenario_type: ${var.scenario_type}
-name_prefix: ${terraform.workspace}-${var.name}
 host_ips: [${join(", ", formatlist("'%s'", var.host_ips))}]
 hostname: ${terraform.workspace}-${var.name}${var.ninstances > 1 ? "0${count.index + 1}" : ""}
 domain: "tf.local"
