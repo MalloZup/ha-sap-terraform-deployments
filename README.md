@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/SUSE/ha-sap-terraform-deployments.svg?branch=master)](https://travis-ci.org/SUSE/ha-sap-terraform-deployments)
 **Supported terraform version  `0.12.6`**
+
+yo
 ___
 
 # Supported cloud providers
