@@ -9,7 +9,7 @@ for provider in $(find * -maxdepth 0 -type d | grep -Ev 'salt|pillar_examples');
   echo "doing tests for $provider"
   echo "============================"
   echo
-
+fadfa
   cd $provider ;
   echo "--------------------------"
   echo " executing terraform fmt"
