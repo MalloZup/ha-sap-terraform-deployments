@@ -21,6 +21,15 @@ cluster:
     overwrite: true
     password: linux
   {% endif %}
+  {% if grains['provider'] == 'azure' %}
+  corosync:
+    totem:
+      token: 30000
+      token_retransmits_before_loss_const: 10
+      join: 60
+      consensus: 36000
+      max_messages: 20
+  {% endif %}
   {% if grains.get('monitoring_enabled', False) %}
   ha_exporter: true
   {% else %}
@@ -32,8 +41,10 @@ cluster:
     template:
       source: /srv/salt/drbd_files/templates/drbd_cluster.j2
       parameters:
-        virtual_ip: {{ ".".join(grains['host_ips'][0].split('.')[0:-1]) }}.201
-        virtual_ip_mask: 24
         {% if grains['provider']== "azure" %}
         probe: 61000
+        {% elif grains['provider'] == 'gcp' %}
+        virtual_ip: {{ grains['drbd_cluster_vip'] }}
+        vpc_network_name: {{ grains['vpc_network_name'] }}
+        route_table: {{ grains['route_table'] }}
         {% endif %}

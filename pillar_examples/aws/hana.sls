@@ -1,12 +1,13 @@
 hana:
   # install_packages: false # disable pre defined pacakge installation
+  saptune_solution: 'HANA'
   nodes:
     - host: 'hana01'
       sid: 'prd'
       instance: "00"
       password: 'SET YOUR PASSWORD'
       install:
-        software_path: '/root/hana_inst_media/'
+        software_path: '/sapmedia/HANA'
         root_user: 'root'
         root_password: ''
         system_user_password: 'SET YOUR PASSWORD'
@@ -29,7 +30,7 @@ hana:
       instance: "00"
       password: 'SET YOUR PASSWORD'
       install:
-        software_path: '/root/hana_inst_media/'
+        software_path: '/sapmedia/HANA'
         root_user: 'root'
         root_password: ''
         system_user_password: 'SET YOUR PASSWORD'

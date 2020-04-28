@@ -1,8 +1,8 @@
 open-iscsi:
   pkg.installed:
   - retry:
-    attempts: 3
-    interval: 15
+      attempts: 3
+      interval: 15
 
 /etc/iscsi/initiatorname.iscsi:
   file.replace:
@@ -13,6 +13,12 @@ open-iscsi:
   file.replace:
     - pattern: "^node.startup = manual"
     - repl: "node.startup = automatic"
+
+iscsi-queue-depth:
+  file.replace:
+    - name: "/etc/iscsi/iscsid.conf"
+    - pattern: "^node.session.queue_depth = [0-9]*"
+    - repl: "node.session.queue_depth = 64"
 
 iscsi:
   service.running:

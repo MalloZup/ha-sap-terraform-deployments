@@ -1,11 +1,3 @@
-data "template_file" "salt_provisioner" {
-  template = file("../salt/salt_provisioner_script.tpl")
-
-  vars = {
-    regcode = var.reg_code
-  }
-}
-
 resource "null_resource" "drbd_provisioner" {
   count = var.provisioner == "salt" ? var.drbd_count : 0
 
@@ -18,16 +10,6 @@ resource "null_resource" "drbd_provisioner" {
     type        = "ssh"
     user        = var.admin_user
     private_key = file(var.private_key_location)
-  }
-
-  provisioner "file" {
-    source      = "../salt"
-    destination = "/tmp"
-  }
-
-  provisioner "file" {
-    content     = data.template_file.salt_provisioner.rendered
-    destination = "/tmp/salt_provisioner.sh"
   }
 
   provisioner "file" {
@@ -47,6 +29,7 @@ host_ip: ${element(var.host_ips, count.index)}
 cluster_ssh_pub:  ${var.cluster_ssh_pub}
 cluster_ssh_key: ${var.cluster_ssh_key}
 drbd_disk_device: /dev/sdc
+drbd_cluster_vip: ${var.drbd_cluster_vip}
 shared_storage_type: iscsi
 sbd_disk_device: /dev/sde
 iscsi_srv_ip: ${var.iscsi_srv_ip}
@@ -58,15 +41,17 @@ partitions:
   1:
     start: 0%
     end: 100%
-
   EOF
     destination = "/tmp/grains"
   }
+}
 
-  provisioner "remote-exec" {
-    inline = [
-      "${var.background ? "nohup" : ""} sudo sh /tmp/salt_provisioner.sh > /tmp/provisioning.log ${var.background ? "&" : ""}",
-      "return_code=$? && sleep 1 && exit $return_code",
-    ] # Workaround to let the process start in background properly
-  }
+module "drbd_provision" {
+  source               = "../../../generic_modules/salt_provisioner"
+  node_count           = var.provisioner == "salt" ? var.drbd_count : 0
+  instance_ids         = null_resource.drbd_provisioner.*.id
+  user                 = var.admin_user
+  private_key_location = var.private_key_location
+  public_ips           = data.azurerm_public_ip.drbd.*.ip_address
+  background           = var.background
 }

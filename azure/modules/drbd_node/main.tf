@@ -27,7 +27,7 @@ resource "azurerm_lb" "drbd-load-balancer" {
     name                          = "lbfe-drbd"
     subnet_id                     = var.network_subnet_id
     private_ip_address_allocation = "static"
-    private_ip_address            = "10.74.1.201"
+    private_ip_address            = var.drbd_cluster_vip
   }
 
   tags = {
@@ -164,13 +164,15 @@ resource "azurerm_image" "drbd-image" {
 # drbd instances
 
 resource "azurerm_virtual_machine" "drbd" {
-  count                 = var.drbd_count
-  name                  = "vm${var.name}${var.drbd_count > 1 ? "0${count.index + 1}" : ""}"
-  location              = var.az_region
-  resource_group_name   = var.resource_group_name
-  network_interface_ids = [element(azurerm_network_interface.drbd.*.id, count.index)]
-  availability_set_id   = azurerm_availability_set.drbd-availability-set[0].id
-  vm_size               = var.instancetype
+  count                            = var.drbd_count
+  name                             = "vm${var.name}${var.drbd_count > 1 ? "0${count.index + 1}" : ""}"
+  location                         = var.az_region
+  resource_group_name              = var.resource_group_name
+  network_interface_ids            = [element(azurerm_network_interface.drbd.*.id, count.index)]
+  availability_set_id              = azurerm_availability_set.drbd-availability-set[0].id
+  vm_size                          = var.vm_size
+  delete_os_disk_on_termination    = true
+  delete_data_disks_on_termination = true
 
   storage_os_disk {
     name              = "disk-${var.name}${var.drbd_count > 1 ? "0${count.index + 1}" : ""}-Os"
@@ -218,4 +220,14 @@ resource "azurerm_virtual_machine" "drbd" {
   tags = {
     workspace = terraform.workspace
   }
+}
+
+module "drbd_on_destroy" {
+  source               = "../../../generic_modules/on_destroy"
+  node_count           = var.drbd_count
+  instance_ids         = azurerm_virtual_machine.drbd.*.id
+  user                 = var.admin_user
+  private_key_location = var.private_key_location
+  public_ips           = data.azurerm_public_ip.drbd.*.ip_address
+  dependencies         = [data.azurerm_public_ip.drbd]
 }

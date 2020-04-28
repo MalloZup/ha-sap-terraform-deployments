@@ -12,6 +12,7 @@ cluster:
   interface: eth0
   unicast: True
   {% endif %}
+  join_timeout: 180
   watchdog:
     module: softdog
     device: /dev/watchdog
@@ -25,6 +26,15 @@ cluster:
   {% endif %}
   resource_agents:
     - SAPHanaSR
+  {% if grains['provider'] == 'azure' %}
+  corosync:
+    totem:
+      token: 30000
+      token_retransmits_before_loss_const: 10
+      join: 60
+      consensus: 36000
+      max_messages: 20
+  {% endif %}
   {% if grains.get('monitoring_enabled', False) %}
   ha_exporter: true
   {% else %}
@@ -38,16 +48,16 @@ cluster:
       parameters:
         sid: {{ hana.hana.nodes[0].sid }}
         instance: {{ hana.hana.nodes[0].instance }}
-        {% if grains['provider'] != 'azure' %}
-        virtual_ip: {{ ".".join(grains['host_ips'][0].split('.')[0:-1]) }}.200
-        {% else %}
-        virtual_ip: {{ grains['azure_lb_ip'] }}
-        {% endif %}
         {% if grains['provider'] == 'aws' %}
-        virtual_ip_mask: 16
-        {% else %}
-        virtual_ip_mask: 24
+        route_table: {{ grains['route_table'] }}
+        cluster_profile: {{ grains['aws_cluster_profile'] }}
+        instance_tag: {{ grains['aws_instance_tag'] }}
+        {% elif grains['provider'] == 'gcp' %}
+        route_table: {{ grains['route_table'] }}
+        vpc_network_name: {{ grains['vpc_network_name'] }}
         {% endif %}
+        virtual_ip: {{ grains['hana_cluster_vip'] }}
+        virtual_ip_mask: 24
         {% if grains['scenario_type'] == 'cost-optimized' %}
         prefer_takeover: false
         {% else %}
