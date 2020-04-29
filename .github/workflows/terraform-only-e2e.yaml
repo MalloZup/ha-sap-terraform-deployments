@@ -34,7 +34,7 @@ jobs:
         terraform init
         terraform apply -auto-approve
         
-     - name: terraform destroy
+    - name: terraform destroy
       run: |
         cd libvirt
         # copy data for deploy
