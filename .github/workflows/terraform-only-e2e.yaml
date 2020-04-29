@@ -28,7 +28,7 @@ jobs:
       run: |
         cd libvirt
         # copy data for deploy
-        cp /tmp/hana-netweaver.tfvars terraform.tvars
+        cp /tmp/hana-netweaver-tf-only.tfvars terraform.tvars
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init
@@ -38,7 +38,7 @@ jobs:
       if: ${{ always() }}
       run: |
         cd libvirt
-        cp /tmp/hana-netweaver.tfvars terraform.tvars
+        cp /tmp/hana-netweaver-tf-only.tfvars terraform.tvars
         terraform workspace select gh-terraform1
         terraform init
         terraform destroy -auto-approve
