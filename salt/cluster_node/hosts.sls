@@ -5,3 +5,5 @@
     - names:
       - {{ grains['name_prefix'] }}{{ '{:0>2}'.format(loop.index) }}
 {% endfor %}
+
+# test fileter
