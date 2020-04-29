@@ -41,7 +41,6 @@ jobs:
         cd libvirt
         # copy data for deploy
         cp /tmp/terraform.tfvars .
-        terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init
         terraform destroy -auto-approve
