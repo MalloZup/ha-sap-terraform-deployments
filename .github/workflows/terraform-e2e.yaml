@@ -24,7 +24,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    - name: terraform init
+    - name: terraform apply netweaver and hana
       run: |
         cd libvirt
         # copy data for deploy
@@ -32,8 +32,4 @@ jobs:
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init
-
-    - name: terraform apply
-      run: terraform apply -auto-approve
-
-
+        terraform apply -auto-approve
