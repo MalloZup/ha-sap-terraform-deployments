@@ -40,6 +40,7 @@ prometheus_service:
     - name: prometheus
     - enable: True
     - require:
+#trigger
       - file: prometheus_configuration
       - file: prometheus_alerts
     - watch:
