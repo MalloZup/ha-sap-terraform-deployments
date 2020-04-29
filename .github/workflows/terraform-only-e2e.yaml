@@ -36,7 +36,6 @@ jobs:
         
     - name: terraform destroy
       if: ${{ always() }}
-
       run: |
         cd libvirt
         # copy data for deploy
