@@ -28,7 +28,8 @@ jobs:
       run: |
         cd libvirt
         # copy data for deploy
-        cp /tmp/terraform.tfvars .
+        git clone gitlab@gitlab.suse.de:shap/shap-ops.git
+        cp shap-ops/github-action-agent/terraform.tfvars .
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init
@@ -38,8 +39,6 @@ jobs:
       if: ${{ always() }}
       run: |
         cd libvirt
-        # copy data for deploy
-        cp /tmp/terraform.tfvars .
         terraform workspace select gh-terraform1
         terraform init
         terraform destroy -auto-approve
