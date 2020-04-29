@@ -7,11 +7,11 @@ name: terraform end-to-end tests
 on:
   pull_request:
     branches: [ master, develop ]
-    paths:
+    #    paths:
      # build only for PR modifying libvirt and salt folders
-      - 'libvirt/**'
-      - 'salt/**'
-      - 'pillar_examples/**'
+     #    - 'libvirt/**'
+     # - 'salt/**'
+     # - 'pillar_examples/**'
 
 jobs:
   # This workflow contains a single job called "build"
