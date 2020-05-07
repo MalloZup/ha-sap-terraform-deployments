@@ -1,11 +1,10 @@
 hana_inst_media     = "10.162.32.134:/sapdata/sap_inst_media/51053787"
-iprange             = "192.168.127.0/24"
+iprange             = "192.168.109.0/24"
 
 # Enable pre deployment to automatically copy the pillar files and create cluster ssh keys
 pre_deployment = true
 
 # For iscsi, it will deploy a new machine hosting an iscsi service
-#shared_storage_type      = "iscsi"
 shared_storage_type = "shared-disk"
 
 source_image       = "http://download.suse.de/ibs/Devel:/SAP:/Terraform:/Images/images/SLES4SAP-15_SP0-JeOS.x86_64.qcow2"
@@ -28,12 +27,9 @@ netweaver_swpm_folder     =  "SWPM_10_SP26_6"
 netweaver_sapexe_folder   =  "kernel_nw75_sar"
 netweaver_additional_dvds = ["51050829_3", "51053787"]
 
-# Install S4/HANA
-#netweaver_sapexe_folder   =  "kernel_s4h_1709_sar"
-#netweaver_additional_dvds = ["51052190", "51053787"]
 
 # NFS share to store the Netweaver shared files
-netweaver_nfs_share    = "192.168.127.201:/HA1"
+netweaver_nfs_share    = "192.168.108.201:/HA1"
 
 # DRBD variables
 
