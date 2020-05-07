@@ -31,7 +31,7 @@ jobs:
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
         ls -l
-        echo "$KVM_SERVER" >> terraform.tfvars
+        export qemu_uri="$KVM_SERVER" 
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init 
@@ -43,7 +43,7 @@ jobs:
       run: |
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
-        echo "$KVM_SERVER" >> terraform.tfvars
+        export qemu_uri="$KVM_SERVER" 
         terraform workspace select gh-terraform1
         terraform init
         terraform destroy -auto-approve
