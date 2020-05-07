@@ -27,9 +27,9 @@ jobs:
 
     - name: terraform apply netweaver and hana
       run: |
-        cd libvirt
         # add env var to file
         cp .github/hana-netweaver-tf-only.tfvars terraform.tvars
+        cd libvirt
         export qemu_uri="$KVM_SERVER"
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
@@ -39,8 +39,8 @@ jobs:
     - name: terraform destroy
       if: ${{ always() }}
       run: |
-        cd libvirt
         cp .github/hana-netweaver-tf-only.tfvars terraform.tvars
+        cd libvirt
         export qemu_uri="$KVM_SERVER"
         terraform workspace select gh-terraform1
         terraform init
