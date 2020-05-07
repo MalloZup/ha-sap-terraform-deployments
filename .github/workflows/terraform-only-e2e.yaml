@@ -31,19 +31,19 @@ jobs:
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tvars
         cd libvirt
         ls -l
-        echo "$KVM_SERVER" >> terraform.tvars
+        echo "$KVM_SERVER" >> terraform.tfvars
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
-        terraform init  -var-file="terraform.tfvars"
-        terraform apply -auto-approve -var-file="terraform.tfvars"
+        terraform init 
+        terraform apply -auto-approve
 
         
     - name: terraform destroy
       if: ${{ always() }}
       run: |
-        cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tvars
+        cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
         echo "$KVM_SERVER" >> terraform.tvars
         terraform workspace select gh-terraform1
-        terraform init -var-file="terraform.tfvars"
-        terraform destroy -auto-approve -var-file="terraform.tfvars"
+        terraform init
+        terraform destroy -auto-approve
