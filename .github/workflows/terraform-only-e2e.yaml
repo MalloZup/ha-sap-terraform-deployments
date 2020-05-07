@@ -18,6 +18,9 @@ jobs:
   terraform-deploy-netweaver-hana:
     # The type of runner that the job will run on
     runs-on: self-hosted 
+    env:
+      KVM_SERVER: ${{ secrets.KVM_SERVER }}
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -28,6 +31,7 @@ jobs:
         # add env var to file
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
+        export qemu_uri="$KVM_SERVER"
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init 
@@ -39,6 +43,7 @@ jobs:
       run: |
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
+        export qemu_uri="$KVM_SERVER"
         terraform workspace select gh-terraform1
         terraform init
         terraform destroy -auto-approve
