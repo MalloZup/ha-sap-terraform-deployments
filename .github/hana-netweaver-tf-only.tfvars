@@ -7,12 +7,12 @@ pre_deployment = true
 
 # For iscsi, it will deploy a new machine hosting an iscsi service
 shared_storage_type = "shared-disk"
-
 source_image       = "http://download.suse.de/ibs/Devel:/SAP:/Terraform:/Images/images/SLES4SAP-15_SP0-JeOS.x86_64.qcow2"
-
-monitoring_enabled = true
 ha_sap_deployment_repo = "https://download.opensuse.org/repositories/network:/ha-clustering:/sap-deployments:/devel"
 
+monitoring_enabled = true
+
+# don't use salt for this test
 provisioner = ""
 
 # Netweaver variables
