@@ -28,7 +28,6 @@ jobs:
         # add env var to file
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
-        ls -l
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init 
