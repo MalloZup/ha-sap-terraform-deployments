@@ -34,8 +34,9 @@ jobs:
         echo "$KVM_SERVER" >> terraform.tvars
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
-        terraform init
-        terraform apply -auto-approve
+        terraform init  -var-file="terraform.tfvars"
+        terraform apply -auto-approve -var-file="terraform.tfvars"
+
         
     - name: terraform destroy
       if: ${{ always() }}
@@ -44,5 +45,5 @@ jobs:
         cd libvirt
         echo "$KVM_SERVER" >> terraform.tvars
         terraform workspace select gh-terraform1
-        terraform init
-        terraform destroy -auto-approve
+        terraform init -var-file="terraform.tfvars"
+        terraform destroy -auto-approve -var-file="terraform.tfvars"
