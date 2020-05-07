@@ -1,4 +1,3 @@
-qemu_uri            = "qemu+ssh://vmm@gollum-p1.qa.suse.de/system"
 hana_inst_media     = "10.162.32.134:/sapdata/sap_inst_media/51053787"
 iprange             = "192.168.16.0/24"
 
