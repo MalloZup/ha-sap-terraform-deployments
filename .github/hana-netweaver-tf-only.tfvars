@@ -1,5 +1,5 @@
 hana_inst_media     = "10.162.32.134:/sapdata/sap_inst_media/51053787"
-iprange             = "192.168.109.0/24"
+iprange             = "192.168.16.0/24"
 
 # Enable pre deployment to automatically copy the pillar files and create cluster ssh keys
 pre_deployment = true
