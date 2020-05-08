@@ -1,4 +1,4 @@
-get_aws_data_provider:
+foget_aws_data_provider:
   cmd.run:
     - name: wget https://s3.amazonaws.com/aws-data-provider/bin/aws-agent_install.sh -O /usr/bin/aws-agent_install.sh
     - unless: ls /usr/bin/aws-agent_install.sh

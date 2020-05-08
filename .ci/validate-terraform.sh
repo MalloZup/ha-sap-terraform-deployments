@@ -16,9 +16,9 @@ for provider in $(find * -maxdepth 0 -type d | grep -Ev 'salt|pillar_examples|do
   echo "doing tests for $provider"
   echo "============================"
   echo
-
+fadfa
   cd $provider ;
-  echo "--------------------------"
+  echo "--------------------------"fsdf
   echo " executing terraform fmt"
   echo "--------------------------"
   /tmp/terraform fmt -check ;
