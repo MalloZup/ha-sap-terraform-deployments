@@ -32,7 +32,7 @@ jobs:
         terraform workspace new gh-terraform1
         terraform workspace select gh-terraform1
         terraform init 
-        terraform apply -auto-approve
+        terraform apply -auto-approve -var "qemu_uri=${qemu_uri}"
       env:
         qemu_uri: ${{ secrets.KVM_SERVER }}
 
@@ -46,6 +46,6 @@ jobs:
         cd libvirt
         terraform workspace select gh-terraform1
         terraform init
-        terraform destroy -auto-approve
+        terraform destroy -auto-approve -var "qemu_uri=${qemu_uri}"
       env:
         qemu_uri: ${{ secrets.KVM_SERVER }}
