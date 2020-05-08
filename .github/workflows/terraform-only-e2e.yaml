@@ -26,6 +26,7 @@ jobs:
     - name: terraform apply netweaver and hana
       run: |
         # add env var to file
+        env
         cp .github/hana-netweaver-tf-only.tfvars libvirt/terraform.tfvars
         cd libvirt
         terraform workspace new gh-terraform1
