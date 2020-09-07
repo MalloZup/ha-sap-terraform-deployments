@@ -29,7 +29,7 @@ log_error () {
   TIMESTAMP=`date -u`
   RED='\033[0;31m'
   NC='\033[0m' # No Color
-  printf "${RED}$TIMESTAMP::$NODE::[ERROR] $1 ${NC}\n"
+  printf "${RED}$TIMESTAMP::$NODE::[ERROR] $1 ${NC}\n" | tee "/var/log/salt-phases.log"
   exit 1
 }
 

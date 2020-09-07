@@ -81,3 +81,28 @@ resource "null_resource" "provision" {
     ]
   }
 }
+
+resource "null_resource" "post-run" {
+  count = ! var.background ? var.node_count : 0
+  triggers = {
+    triggers = join(",", var.instance_ids)
+  }
+
+  connection {
+    host        = element(var.public_ips, count.index)
+    type        = "ssh"
+    user        = var.user
+    password    = var.password
+    private_key = var.private_key_location != "" ? file(var.private_key_location) : ""
+
+    bastion_host        = var.bastion_host
+    bastion_user        = var.user
+    bastion_private_key = var.bastion_private_key != "" ? file(var.bastion_private_key) : ""
+  }
+
+    provisioner "remote-exec" {
+    inline = [
+      "if [ -e /var/log/salt-phases.log ]; then sudo sh cat /var/log/salt-phases.log; fi"
+     ]
+  }
+}
