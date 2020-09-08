@@ -17,6 +17,7 @@ grafana_anonymous_login_configuration:
         org_role = Admin
     - require:
       - pkg: grafana
+    - parallel: True
 
 grafana_provisioning_datasources:
   file.managed:
@@ -28,6 +29,7 @@ grafana_provisioning_datasources:
     - group: grafana
     - require:
       - pkg: grafana
+    - parallel: True
 
 grafana_dashboards:
   pkg.installed:
@@ -35,6 +37,8 @@ grafana_dashboards:
       - grafana-ha-cluster-dashboards
       - grafana-sap-hana-dashboards
       - grafana-sap-netweaver-dashboards
+    - require:
+      - pkg: grafana
 
 grafana_service:
   service.running:

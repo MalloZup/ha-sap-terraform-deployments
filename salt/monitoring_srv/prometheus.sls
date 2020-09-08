@@ -4,6 +4,7 @@ prometheus:
     - retry:
         attempts: 3
         interval: 15
+    - parallel: True
 
 prometheus_alerts:
   file.managed:
@@ -11,6 +12,7 @@ prometheus_alerts:
     - source: salt://monitoring_srv/prometheus/rules.yml
     - require:
       - pkg: prometheus
+    - parallel: True
 
 prometheus_configuration:
   file.managed:
@@ -19,6 +21,7 @@ prometheus_configuration:
     - template: jinja
     - require:
       - pkg: prometheus
+    - parallel: True
 
 prometheus_service:
   service.running:
@@ -27,6 +30,7 @@ prometheus_service:
     - require:
       - file: prometheus_configuration
       - file: prometheus_alerts
+      - pkg: prometheus
     - watch:
       - file: prometheus_configuration
       - file: prometheus_alerts

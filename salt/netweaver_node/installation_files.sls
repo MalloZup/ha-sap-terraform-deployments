@@ -63,7 +63,7 @@ download_files_from_s3:
         --region {{ grains['region'] }} | grep download > /dev/null 2>&1"
     - output_loglevel: quiet
     - hide_output: True
-
+    - failhard: True
 {% endif %}
 
 swpm_folder:
