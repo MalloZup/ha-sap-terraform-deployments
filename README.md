@@ -5,7 +5,6 @@
 ___
 
 # Supported cloud providers
-
 - [libvirt/KVM](libvirt)
 - [azure](azure)
 - [google cloud](gcp)
@@ -13,6 +12,8 @@ ___
 
 
 ## Major features
+
+For details about features, have look at `terraform.tfvars.example` of each provider.
 
 - HA Clusters and HANA deployment
 - [Monitoring of cluster](doc/monitoring.md)
