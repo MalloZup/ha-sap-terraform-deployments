@@ -68,20 +68,9 @@ variable "sles4sap_uri" {
   default = ""
 }
 
-variable "hana_public_publisher" {
-  type = string
-}
-
-variable "hana_public_offer" {
-  type = string
-}
-
-variable "hana_public_sku" {
-  type = string
-}
-
-variable "hana_public_version" {
-  type = string
+variable "os_image" {
+  description = "sles4sap image used to create this module machines. Composed by 'Publisher:Offer:Sku:Version' syntax. Example: SUSE:sles-sap-15-sp2:gen2:latest"
+  type        = string
 }
 
 variable "vm_size" {
@@ -112,10 +101,9 @@ variable "bastion_private_key" {
   default     = ""
 }
 
-variable "sbd_enabled" {
-  description = "Enable sbd usage in the HA cluster"
-  type        = bool
-  default     = true
+variable "fencing_mechanism" {
+  description = "Choose the fencing mechanism for the cluster. Options: sbd"
+  type        = string
 }
 
 variable "sbd_storage_type" {

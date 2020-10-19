@@ -27,10 +27,9 @@ variable "netweaver_count" {
   default = "2"
 }
 
-variable "netweaver_image" {
-  description = "image of the netweaver nodes"
+variable "os_image" {
+  description = "Image used to create the machine"
   type        = string
-  default     = "suse-byos-cloud/sles-15-sap-byos"
 }
 
 variable "gcp_credentials_file" {
@@ -54,10 +53,9 @@ variable "ha_enabled" {
   default     = true
 }
 
-variable "sbd_enabled" {
-  description = "Enable sbd usage in the HA cluster"
-  type        = bool
-  default     = false
+variable "fencing_mechanism" {
+  description = "Choose the fencing mechanism for the cluster. Options: sbd, native"
+  type        = string
 }
 
 variable "sbd_storage_type" {
@@ -86,6 +84,12 @@ variable "cluster_ssh_key" {
 variable "netweaver_software_bucket" {
   description = "gcp bucket where netweaver software is available"
   type        = string
+}
+
+variable "netweaver_sid" {
+  description = "System identifier of the Netweaver installation (e.g.: HA1 or PRD)"
+  type        = string
+  default     = "HA1"
 }
 
 variable "ascs_instance_number" {
@@ -127,7 +131,7 @@ variable "netweaver_inst_folder" {
 variable "netweaver_extract_dir" {
   description = "Extraction path for Netweaver media archives of SWPM and netweaver additional dvds"
   type        = string
-  default     = "/sapmedia/NW"
+  default     = "/sapmedia_extract/NW"
 }
 
 variable "netweaver_swpm_folder" {

@@ -27,10 +27,9 @@ variable "network_subnet_name" {
   type        = string
 }
 
-variable "sles4sap_boot_image" {
-  description = "The image used to create the hana machines"
+variable "os_image" {
+  description = "Image used to create the machine"
   type        = string
-  default     = "suse-byos-cloud/sles-15-sap-byos"
 }
 
 variable "gcp_credentials_file" {
@@ -43,10 +42,9 @@ variable "host_ips" {
   type        = list(string)
 }
 
-variable "sbd_enabled" {
-  description = "Enable sbd usage in the HA cluster"
-  type        = bool
-  default     = false
+variable "fencing_mechanism" {
+  description = "Choose the fencing mechanism for the cluster. Options: sbd, native"
+  type        = string
 }
 
 variable "sbd_storage_type" {
