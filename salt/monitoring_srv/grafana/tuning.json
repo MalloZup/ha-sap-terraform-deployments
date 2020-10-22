@@ -16,7 +16,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1603390894658,
+  "iteration": 1603391688796,
   "links": [],
   "panels": [
     {
@@ -65,7 +65,7 @@
         {
           "expr": "saptune_solution_bobj{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "bobj",
+          "legendFormat": "BOBJ",
           "refId": "C"
         },
         {
@@ -73,56 +73,56 @@
           "format": "time_series",
           "instant": false,
           "interval": "",
-          "legendFormat": "hana ",
+          "legendFormat": "HANA",
           "refId": "A"
         },
         {
           "expr": "saptune_solution_maxdb{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "format": "time_series",
           "interval": "",
-          "legendFormat": "maxdb",
+          "legendFormat": "MAXDB",
           "refId": "B"
         },
         {
           "expr": "saptune_solution_netweaver{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "netweaver",
+          "legendFormat": "NETWEAVER",
           "refId": "D"
         },
         {
           "expr": "saptune_solution_netweaver_hana{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "netweaver-hana",
+          "legendFormat": "NETWEAVER-HANA",
           "refId": "E"
         },
         {
           "expr": "saptune_solution_s4hana_app_db{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "s4hana-app+db",
+          "legendFormat": "S4HANA-APP-DB",
           "refId": "G"
         },
         {
           "expr": "saptune_solution_s4hana_appserver{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "s4ahna-appserver",
+          "legendFormat": "S4HANA-APPSERVER",
           "refId": "H"
         },
         {
           "expr": "saptune_solution_s4hana_dbserver{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "sf4hana-dbserver",
+          "legendFormat": "S4HANA-DBSERVER",
           "refId": "I"
         },
         {
           "expr": "saptune_solution_sap_ase{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "sap-ase",
+          "legendFormat": "SAP-ASE",
           "refId": "F"
         }
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Saptune solution enabled Hana01",
+      "title": "Saptune solution enabled",
       "transformations": [
         {
           "id": "filterFieldsByName",
@@ -228,6 +228,17 @@
                 "Value",
                 "instance"
               ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Value": "Version",
+              "instance": "SAP node"
             }
           }
         }
