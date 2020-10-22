@@ -33,24 +33,6 @@ variable "network_domain" {
   default = "tf.local"
 }
 
-variable "bastion_enabled" {
-  description = "Use a bastion machine to create the ssh connections"
-  type        = bool
-  default     = true
-}
-
-variable "bastion_host" {
-  description = "Bastion host address"
-  type        = string
-  default     = ""
-}
-
-variable "bastion_private_key" {
-  description = "Path to a SSH private key used to connect to the bastion. It must be provided if bastion is enabled"
-  type        = string
-  default     = ""
-}
-
 variable "xscs_server_count" {
   type    = number
   default = 2
@@ -109,6 +91,11 @@ variable "pas_instance_number" {
   description = "PAS instance number"
   type        = string
   default     = "01"
+}
+
+variable "netweaver_master_password" {
+  description = "Master password for the Netweaver system (sidadm user included)"
+  type        = string
 }
 
 variable "netweaver_product_id" {
@@ -216,6 +203,21 @@ variable "os_image" {
 variable "hana_ip" {
   type        = string
   description = "Ip address of the hana database"
+}
+
+variable "hana_sid" {
+  description = "System identifier of the HANA system (e.g.: HA1 or PRD)"
+  type        = string
+}
+
+variable "hana_instance_number" {
+  description = "Instance number of the HANA system. It must be a 2 digits string. Examples: 00, 01, 10"
+  type        = string
+}
+
+variable "hana_master_password" {
+  description = "Master password for the HANA system (sidadm user included)"
+  type        = string
 }
 
 variable "ha_enabled" {
