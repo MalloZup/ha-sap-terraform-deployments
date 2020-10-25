@@ -16,9 +16,92 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": 6,
-  "iteration": 1603391688796,
+  "iteration": 1603633104064,
   "links": [],
   "panels": [
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "color-background"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "dark-green",
+                "value": null
+              },
+              {
+                "color": "dark-blue",
+                "value": 1
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 11,
+        "w": 11,
+        "x": 0,
+        "y": 0
+      },
+      "id": 6,
+      "links": [
+        {
+          "targetBlank": true,
+          "title": "SAP NOTES",
+          "url": "https://support.sap.com/en/index.html"
+        }
+      ],
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Enabled"
+          }
+        ]
+      },
+      "pluginVersion": "7.1.5",
+      "targets": [
+        {
+          "expr": "saptune_note_enabled",
+          "interval": "",
+          "legendFormat": "{{ noteName }}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Saptune notes enabled",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "last"
+            ]
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {},
+            "renameByName": {
+              "Field": "Saptune note  ID ",
+              "Last": "Enabled"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
     {
       "datasource": "Prometheus",
       "fieldConfig": {
@@ -50,8 +133,8 @@
       },
       "gridPos": {
         "h": 11,
-        "w": 16,
-        "x": 0,
+        "w": 13,
+        "x": 11,
         "y": 0
       },
       "id": 4,
@@ -98,7 +181,7 @@
         {
           "expr": "saptune_solution_s4hana_app_db{instance=\"192.168.23.12:9758\", job=\"hana\"}",
           "interval": "",
-          "legendFormat": "S4HANA-APP-DB",
+          "legendFormat": "S4HANA-APP+DB",
           "refId": "G"
         },
         {
@@ -146,7 +229,7 @@
             "excludeByName": {},
             "indexByName": {},
             "renameByName": {
-              "Field": "Solution Name",
+              "Field": "Node",
               "Last (not null)": "Active"
             }
           }
@@ -160,7 +243,7 @@
         "defaults": {
           "custom": {
             "align": null,
-            "displayMode": "color-text"
+            "displayMode": "color-background"
           },
           "mappings": [
             {
@@ -179,19 +262,32 @@
                 "value": null
               },
               {
-                "color": "red",
-                "value": 80
+                "color": "dark-green",
+                "value": 2
               }
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 929
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
-        "h": 11,
-        "w": 6,
-        "x": 16,
-        "y": 0
+        "h": 3,
+        "w": 16,
+        "x": 3,
+        "y": 11
       },
       "id": 2,
       "options": {
@@ -199,7 +295,7 @@
         "sortBy": [
           {
             "desc": false,
-            "displayName": "__name__"
+            "displayName": "instance"
           }
         ]
       },
@@ -212,7 +308,7 @@
           "format": "table",
           "instant": true,
           "interval": "",
-          "legendFormat": "hana01",
+          "legendFormat": "{{ instance }]",
           "refId": "A"
         }
       ],
@@ -228,17 +324,6 @@
                 "Value",
                 "instance"
               ]
-            }
-          }
-        },
-        {
-          "id": "organize",
-          "options": {
-            "excludeByName": {},
-            "indexByName": {},
-            "renameByName": {
-              "Value": "Version",
-              "instance": "SAP node"
             }
           }
         }
@@ -293,5 +378,5 @@
   "timezone": "",
   "title": "Tuning",
   "uid": "HzFepKtMz",
-  "version": 7
+  "version": 9
 }
